@@ -1,0 +1,6 @@
+pages:
+- {Home: index.md}
+- {Python语法基础: fundation.md}
+site_name: 数据分析和挖掘
+theme: readthedocs
+    
