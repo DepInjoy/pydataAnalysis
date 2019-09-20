@@ -1,37 +1,69 @@
-## Welcome to GitHub Pages
+将jupyter自动发布到Github Pages
 
-You can use the [editor on GitHub](https://github.com/DepInjoy/pydataAnalysis/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+环境搭建
+- 利用anconda创建一个干净的开发环境
+```
+conda create -n jupyter_env python=3.7.0
+activate jupyter_env
+pip install mkdocs
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+- 创建一个Github Pages仓库
 
-### Jekyll Themes
+- 创建一个mkdocs项目
+```
+mkdocs new pydataAnalysis
+git init
+git remote add origin git@github.com:DepInjoy/pydataAnalysis.git
+```
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/DepInjoy/pydataAnalysis/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+- 修改mkdocs.yml配置文件
+```
+pages:
+- {Home: index.md}
+site_name: 数据分析和挖掘
+theme: readthedocs
+```
 
-### Support or Contact
+- 创建Jupyter配置文件
+```
+# 创建配置文件和代码的存放路径
+mkdir config jupyters
+# 生成配置文件
+jupyter notebook --generate-config
+cp C:/Users/username/.jupyter/jupyter_notebook_config.py config/
+```
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+- 修改Jupyter配置文件
+在配置文件的末尾追加：
+```
+def output_post_save(model, os_path, contents_manager):
+	pass
+c.FileContentsManager.root_dir = 'jupyters'
+c.FileContentsManager.post_save_hook = output_post_save
+```
+
+- 运行jupyter
+```
+jupyter notebook --config config/jupyter_notebook_config.py
+```
+
+- .ipynb转化为md,并复制到docs目录下
+
+- 将添加的配置文件添加至mkdocs.yml[参考博客](https://markdown-docs-zh.readthedocs.io/zh_CN/latest/)
+```
+pages:
+- {Home: index.md}
+- {Untitled: Untitled.md}
+```
+
+- 编译
+```
+mkdocs build --clean
+```
+
+- 本地查看
+```
+mkdocs serve
+```
+远程只需要将site推送上去即可。
