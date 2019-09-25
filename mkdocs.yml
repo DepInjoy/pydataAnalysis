@@ -1,6 +1,7 @@
 pages:
 - {Home: index.md}
 - {Python语法基础: fundation.md}
+- {Pandas常用基础知识: Pandas.md}
 site_name: 数据分析和挖掘
 theme: readthedocs
     
