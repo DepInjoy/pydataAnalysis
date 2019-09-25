@@ -1,4 +1,8 @@
-将jupyter自动发布到Github Pages
+### 代码分支
+- master: 开发源码
+- gh-pages: 网站源码
+
+### 将jupyter自动发布到Github Pages
 
 环境搭建
 - 利用anconda创建一个干净的开发环境
@@ -51,6 +55,7 @@ jupyter notebook --config config/jupyter_notebook_config.py
 - .ipynb转化为md,并复制到docs目录下
 
 - 将添加的配置文件添加至mkdocs.yml[参考博客](https://markdown-docs-zh.readthedocs.io/zh_CN/latest/)
+
 ```
 pages:
 - {Home: index.md}
