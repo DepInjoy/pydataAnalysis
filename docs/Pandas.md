@@ -377,6 +377,51 @@ frame
 
 
 
+返回纬度
+
+
+```python
+frame.shape
+```
+
+
+
+
+    (6, 3)
+
+
+
+获取列的数据类型
+
+
+```python
+frame.dtypes
+```
+
+
+
+
+    state     object
+    year       int64
+    pop      float64
+    dtype: object
+
+
+
+进一步调查显示state的数据类型
+
+
+```python
+type(frame["state"][0])
+```
+
+
+
+
+    str
+
+
+
 对于数据量比较大的，head方法会选取前5行
 
 
@@ -440,6 +485,115 @@ frame.head()
       <td>Nevada</td>
       <td>2002</td>
       <td>2.9</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+查询是否有冗余
+
+
+```python
+frame.duplicated()
+```
+
+
+
+
+    0    False
+    1    False
+    2    False
+    3    False
+    4    False
+    5    False
+    dtype: bool
+
+
+
+
+```python
+sum(frame.duplicated())
+```
+
+
+
+
+    0
+
+
+
+删除冗余
+
+
+```python
+frame.drop_duplicates(inplace = True)
+frame
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>state</th>
+      <th>year</th>
+      <th>pop</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Ohio</td>
+      <td>2000</td>
+      <td>1.5</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Ohio</td>
+      <td>2001</td>
+      <td>1.7</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Ohio</td>
+      <td>2002</td>
+      <td>3.6</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Nevada</td>
+      <td>2001</td>
+      <td>2.4</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Nevada</td>
+      <td>2002</td>
+      <td>2.9</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Nevada</td>
+      <td>2003</td>
+      <td>3.2</td>
     </tr>
   </tbody>
 </table>
@@ -2372,11 +2526,73 @@ data.iloc[1]
 
 
 
-    one      0
+    one      4
     two      5
     three    6
     four     7
     Name: Colorado, dtype: int32
+
+
+
+
+```python
+data.iloc[:, np.r_[0:2,3]]
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>one</th>
+      <th>two</th>
+      <th>four</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ohio</td>
+      <td>0</td>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>Colorado</td>
+      <td>4</td>
+      <td>5</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>Utah</td>
+      <td>8</td>
+      <td>9</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <td>New York</td>
+      <td>12</td>
+      <td>13</td>
+      <td>15</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 
 
@@ -2916,24 +3132,24 @@ df1.rdiv(1)
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>2.0</td>
-      <td>3.0</td>
+      <td>inf</td>
+      <td>1.000000</td>
+      <td>0.500000</td>
+      <td>0.333333</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>4.0</td>
-      <td>5.0</td>
-      <td>6.0</td>
-      <td>7.0</td>
+      <td>0.250</td>
+      <td>0.200000</td>
+      <td>0.166667</td>
+      <td>0.142857</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>8.0</td>
-      <td>9.0</td>
-      <td>10.0</td>
-      <td>11.0</td>
+      <td>0.125</td>
+      <td>0.111111</td>
+      <td>0.100000</td>
+      <td>0.090909</td>
     </tr>
   </tbody>
 </table>
